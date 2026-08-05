@@ -1,0 +1,131 @@
+@use "sass:map";
+@use "../../global" as *;
+
+.p-news-sidebar {
+  display: grid;
+  gap: rem(55);
+
+  @include mq(md) {
+    gap: rem(53);
+  }
+}
+
+.p-news-sidebar__section {
+  @include mq(md) {
+    position: relative;
+    top: rem(11);
+  }
+}
+
+.p-news-sidebar__heading {
+  display: grid;
+  align-content: start;
+}
+
+.p-news-sidebar__title {
+  font-family: $font-sub;
+  color: $main;
+  @include f_around(36, false, map.get($font-weights, "medium"));
+
+  @include mq(md) {
+    @include f_around(50, false, map.get($font-weights, "medium"));
+  }
+}
+
+.p-news-sidebar__sub {
+  position: relative;
+  margin-top: rem(-10);
+  padding-left: rem(28);
+  font-family: $font-main;
+  color: $text;
+  @include f_around(14, false, map.get($font-weights, "bold"), 6);
+
+  @include mq(md) {
+    margin-top: rem(-4);
+    padding-left: rem(44);
+    @include f_around(16, false, map.get($font-weights, "bold"), 6);
+  }
+}
+
+.p-news-sidebar__sub::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: rem(3);
+  width: rem(16);
+  height: rem(4);
+  background: $section-heading-marker-background;
+  transform: translateY(-50%);
+
+  @include mq(md) {
+    left: 0;
+    width: rem(32);
+  }
+}
+
+.p-news-sidebar__list {
+  margin-top: rem(20);
+}
+
+.p-news-sidebar__item {
+  border-bottom: rem(2) solid $surface-border-strong;
+}
+
+.p-news-sidebar__link {
+  position: relative;
+  display: block;
+  padding: rem(15) rem(28) rem(13) 0;
+  color: $text;
+  word-break: break-word;
+  font-family: $font-main;
+  @include f_around(14, 28, map.get($font-weights, "bold"), 10);
+  transition: opacity 0.3s;
+
+  @include mq(md) {
+    padding: rem(8) rem(28) rem(10) 0;
+  }
+}
+
+.p-news-sidebar__item:first-child .p-news-sidebar__link {
+  padding-top: rem(8);
+  padding-bottom: rem(14);
+
+  @include mq(md) {
+    padding-bottom: rem(10);
+  }
+}
+
+.p-news-sidebar__link::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: rem(5);
+  width: rem(10);
+  height: rem(10);
+  border-top: rem(2) solid $text;
+  border-right: rem(2) solid $text;
+  transform: translateY(-50%) rotate(50deg);
+}
+
+.p-news-sidebar__item:first-child .p-news-sidebar__link::after {
+  top: 44%;
+}
+
+.p-news-sidebar__link:hover {
+  @include mq(md) {
+    opacity: $hover-opacity;
+  }
+}
+
+.p-news-sidebar__empty {
+  margin-top: rem(20);
+  color: $text;
+  word-break: break-word;
+  font-family: $font-main;
+  @include f_around(14, 28, map.get($font-weights, "bold"), 10);
+
+  @include mq(md) {
+    margin-top: rem(35);
+    @include f_around(16, 28, map.get($font-weights, "bold"), 6);
+  }
+}

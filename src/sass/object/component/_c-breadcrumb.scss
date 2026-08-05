@@ -1,0 +1,37 @@
+@use "sass:map";
+@use "../../global" as *;
+
+.c-breadcrumb {
+  color: $text;
+  font-family: $font-main;
+  @include f_around(11, false, map.get($font-weights, "bold"));
+
+  @include mq(md) {
+    margin-left:rem(9);
+    @include f_around(14, false, map.get($font-weights, "bold"));
+  }
+}
+
+.c-breadcrumb a {
+  color: $text;
+}
+
+.c-breadcrumb span {
+  display: inline-block;
+}
+
+.c-breadcrumb span[property="itemListElement"] {
+  margin-inline: rem(5);
+
+  @include mq(md) {
+    margin-inline:rem(10);
+  }
+}
+
+.c-breadcrumb span[property="itemListElement"]:first-child {
+  margin-left: 0;
+}
+
+.c-breadcrumb .current-item {
+  color: $accent-blue;
+}

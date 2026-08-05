@@ -1,0 +1,150 @@
+@charset "UTF-8";
+
+/**
+ * WordPress管理画面用スタイル
+ */
+
+.smart-cf-meta-box-repeat-tables .smart-cf-meta-box-table:has(input[name*="[top_fv_image_pc]"]):has(input[name*="[top_fv_image_sp]"]) {
+	display: flex;
+	position: relative;
+	flex-wrap: nowrap;
+	gap: 0;
+	align-items: start;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: none;
+	padding-top: 36px;
+}
+
+.smart-cf-meta-box-repeat-tables .smart-cf-meta-box-table:has(input[name*="[top_fv_image_pc]"]):has(input[name*="[top_fv_image_sp]"]) > .smart-cf-icon-handle,
+.smart-cf-meta-box-repeat-tables .smart-cf-meta-box-table:has(input[name*="[top_fv_image_pc]"]):has(input[name*="[top_fv_image_sp]"]) > .smart-cf-repeat-btn {
+	position: absolute;
+	top: 10px;
+}
+
+.smart-cf-meta-box-repeat-tables .smart-cf-meta-box-table:has(input[name*="[top_fv_image_pc]"]):has(input[name*="[top_fv_image_sp]"]) > .smart-cf-icon-handle {
+	left: 12px;
+}
+
+.smart-cf-meta-box-repeat-tables .smart-cf-meta-box-table:has(input[name*="[top_fv_image_pc]"]):has(input[name*="[top_fv_image_sp]"]) > .btn-add-repeat-group {
+	left: 40px;
+}
+
+.smart-cf-meta-box-repeat-tables .smart-cf-meta-box-table:has(input[name*="[top_fv_image_pc]"]):has(input[name*="[top_fv_image_sp]"]) > .btn-remove-repeat-group {
+	left: 64px;
+}
+
+.smart-cf-meta-box-repeat-tables .smart-cf-meta-box-table:has(input[name*="[top_fv_image_pc]"]):has(input[name*="[top_fv_image_sp]"]) > .smart-cf-field-type-image:has(input[name*="[top_fv_image_pc]"]) {
+	box-sizing: border-box;
+	flex: 0 0 50%;
+	width: 50%;
+	max-width: 50%;
+	padding-right: 16px;
+}
+
+.smart-cf-meta-box-repeat-tables .smart-cf-meta-box-table:has(input[name*="[top_fv_image_pc]"]):has(input[name*="[top_fv_image_sp]"]) > .smart-cf-field-type-image:has(input[name*="[top_fv_image_sp]"]) {
+	box-sizing: border-box;
+	flex: 0 0 50%;
+	width: 50%;
+	max-width: 50%;
+	padding-left: 16px;
+}
+
+.enflownext-admin-fv-fields {
+	display: flex;
+	flex-wrap: nowrap;
+	gap: 0;
+	align-items: start;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: none;
+	margin-top: 10px;
+}
+
+.smart-cf-meta-box-table .enflownext-admin-fv-field {
+	box-sizing: border-box;
+}
+
+.smart-cf-meta-box-table .enflownext-admin-fv-field--pc {
+	flex: 0 0 50%;
+	width: 50%;
+	max-width: 50%;
+	padding-right: 16px;
+}
+
+.smart-cf-meta-box-table .enflownext-admin-fv-field--sp {
+	flex: 0 0 50%;
+	width: 50%;
+	max-width: 50%;
+	padding-left: 16px;
+}
+
+.smart-cf-meta-box-table .enflownext-admin-fv-field th,
+.smart-cf-meta-box-table .enflownext-admin-fv-field td {
+	display: block;
+	width: auto;
+	padding-right: 0;
+	padding-left: 0;
+}
+
+.smart-cf-meta-box-table .enflownext-admin-fv-field th {
+	padding-top: 0;
+	padding-bottom: 6px;
+	font-weight: 600;
+}
+
+.smart-cf-meta-box-table .enflownext-admin-fv-field .smart-cf-upload-image {
+	display: block;
+	width: 100%;
+	margin-top: 8px;
+}
+
+.smart-cf-meta-box-table .enflownext-admin-fv-field--sp .smart-cf-upload-image {
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
+}
+
+.smart-cf-meta-box-table .enflownext-admin-fv-field--pc .smart-cf-upload-image img {
+	width: 100%;
+	height: auto;
+	max-width: 100%;
+	max-height: none;
+	object-fit: contain;
+}
+
+.smart-cf-meta-box-table .enflownext-admin-fv-field--sp .smart-cf-upload-image img {
+	width: 100%;
+	height: 100%;
+	max-width: 100%;
+	max-height: none;
+	object-fit: contain;
+	object-position: left top;
+}
+
+@media screen and (max-width: 782px) {
+	.smart-cf-meta-box-repeat-tables .smart-cf-meta-box-table:has(input[name*="[top_fv_image_pc]"]):has(input[name*="[top_fv_image_sp]"]) {
+		flex-wrap: wrap;
+	}
+
+	.smart-cf-meta-box-repeat-tables .smart-cf-meta-box-table:has(input[name*="[top_fv_image_pc]"]):has(input[name*="[top_fv_image_sp]"]) > .smart-cf-field-type-image:has(input[name*="[top_fv_image_pc]"]),
+	.smart-cf-meta-box-repeat-tables .smart-cf-meta-box-table:has(input[name*="[top_fv_image_pc]"]):has(input[name*="[top_fv_image_sp]"]) > .smart-cf-field-type-image:has(input[name*="[top_fv_image_sp]"]) {
+		flex-basis: 100%;
+		width: 100%;
+		max-width: 100%;
+		padding-right: 0;
+		padding-left: 0;
+	}
+
+	.enflownext-admin-fv-fields {
+		flex-wrap: wrap;
+	}
+
+	.smart-cf-meta-box-table .enflownext-admin-fv-field--pc,
+	.smart-cf-meta-box-table .enflownext-admin-fv-field--sp {
+		flex-basis: 100%;
+		width: 100%;
+		max-width: 100%;
+		padding-right: 0;
+		padding-left: 0;
+	}
+}

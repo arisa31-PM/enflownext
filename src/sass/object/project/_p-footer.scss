@@ -1,0 +1,160 @@
+@use "sass:map";
+@use "../../global" as *;
+
+.p-footer {
+  color: $white;
+  background: linear-gradient(
+    0deg,
+    $footer-gradient-start 0%,
+    $footer-gradient-end 100%
+  );
+}
+
+.p-footer__inner {
+  width: min(100%, rem(1348));
+  margin-inline: auto;
+  padding: rem(50) rem(40) rem(20);
+
+  @include mq(md) {
+    display: grid;
+    grid-template-columns: 1fr rem(510);
+    row-gap: rem(50);
+    column-gap: rem(60);
+    padding: rem(80) rem(30) rem(30);
+  }
+}
+
+.p-footer__logo {
+  display: inline-block;
+  margin-top: rem(30);
+  font-family: $font-sub;
+  color: $white;
+  position: relative;
+  white-space: nowrap;
+  @include f_around(38, 28, map.get($font-weights, "medium"), 5);
+
+  @include mq(md) {
+    margin-top: rem(-1);
+  }
+}
+
+.p-footer__logo::before {
+  content: "";
+  position: absolute;
+  inset: rem(-20);
+}
+
+.p-footer__sns-list {
+  display: flex;
+  gap: rem(30);
+  margin-top: rem(36);
+}
+
+.p-footer__sns-link {
+  display: grid;
+  place-items: center;
+  width: var(--p-footer-sns-icon-width, rem(24));
+  height: var(--p-footer-sns-icon-height, rem(24));
+}
+
+.p-footer__sns-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.p-footer__privacy {
+  display: inline-block;
+  margin-top: rem(46);
+  @include f_around(12, 20, map.get($font-weights, "bold"), 10);
+
+  @include mq(md) {
+    margin-top: rem(40);
+    @include f_around(16, 12, map.get($font-weights, "bold"), 10);
+  }
+}
+
+.p-footer__nav {
+  margin-top: rem(47);
+
+  @include mq(md) {
+    margin-top: 0;
+  }
+}
+
+.p-footer__nav-list {
+  @include mq(md) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: rem(55);
+    row-gap: rem(52);
+    margin-left: rem(38);
+  }
+}
+
+.p-footer__nav-item {
+  border-bottom: 0.5px solid $white;
+
+  & + & {
+    margin-top: rem(16);
+  }
+
+  @include mq(md) {
+    border-bottom: none;
+
+    & + & {
+      margin-top: 0;
+    }
+  }
+}
+
+.p-footer__nav-link {
+  display: grid;
+  gap: rem(8);
+  padding: rem(17) 0;
+  color: $white;
+  transition: color 0.3s;
+
+  @include mq(md) {
+    padding: 0;
+  }
+}
+
+.p-footer__nav-link:hover {
+  color: $main;
+  opacity: 1;
+}
+
+.p-footer__nav-main {
+  font-family: $font-sub;
+  color: inherit;
+  @include f_around(20, 14, map.get($font-weights, "medium"), 10);
+
+  @include mq(md) {
+    @include f_around(22, 16, map.get($font-weights, "medium"), 10);
+  }
+}
+
+.p-footer__nav-sub {
+  font-family: $font-main;
+  color: inherit;
+  @include f_around(14, 10, map.get($font-weights, "bold"), 10);
+
+  @include mq(md) {
+    @include f_around(14, 10, map.get($font-weights, "bold"), 10);
+  }
+}
+
+.p-footer__copy {
+  display: block;
+  margin-top: rem(71);
+  font-family: $font-sub;
+  @include f_around(12, 20, map.get($font-weights, "extrabold"), 10);
+  text-align: center;
+
+  @include mq(md) {
+    grid-column: 1 / -1;
+    margin-top: rem(42);
+    margin-left:rem(10);
+  }
+}

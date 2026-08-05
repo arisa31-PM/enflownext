@@ -1,0 +1,142 @@
+@use "sass:map";
+@use "../../global" as *;
+
+.p-news {
+  padding: rem(54) 0 rem(70);
+  background-color: $bg;
+
+  @include mq(md) {
+    padding: rem(100) 0 rem(98);
+  }
+}
+
+.p-news__inner {
+  width: min(100%, rem(1300));
+  margin-inline: auto;
+
+  @include mq(md) {
+    display: grid;
+    grid-template-columns: rem(280) 1fr;
+    gap: rem(10);
+  }
+}
+
+.p-news__content {
+  display: grid;
+  gap: rem(18);
+}
+
+.p-news__head {
+  display: grid;
+  gap: rem(24);
+  align-content: start;
+
+  @include mq(md) {
+    margin-left:rem(-20);
+  }
+}
+
+.p-news__list {
+  padding: rem(25) 0 rem(2);
+
+
+  @include mq(md) {
+    padding: rem(3) 0 rem(6);
+  }
+}
+
+.p-news__link {
+  position: relative;
+  display: grid;
+  grid-template-columns: rem(100) auto;
+  column-gap: rem(12);
+  row-gap:rem(9);
+  padding: rem(12) 0;
+
+  @include mq(md) {
+    grid-template-columns: rem(112) auto;
+    align-items: center;
+    column-gap: rem(8);
+    row-gap: rem(8);
+  }
+}
+
+.p-news__link + .p-news__link {
+  margin-top: rem(22);
+
+  @include mq(md) {
+    margin-top:rem(18);
+  }
+}
+
+.p-news__link::after {
+  @include mq(md) {
+    content: "";
+    position: absolute;
+    bottom: rem(-8);
+    left: 0;
+    width: rem(961);
+    height: rem(1);
+    background-color: $accent-blue;
+  }
+}
+
+.p-news__date {
+  width: fit-content;
+  font-family: $font-sub;
+  white-space: nowrap;
+  @include f_around(16, 28, map.get($font-weights, "semibold"),10);
+
+
+}
+
+.p-news__category {
+  width: fit-content;
+  margin-top:rem(-2);
+  padding-inline:rem(14);
+  font-family:$font-main;
+  color: $white;
+  background-color: $tag-blue;
+  border-radius: rem(999);
+  @include f_around(14, 30, map.get($font-weights, "bold"),10);
+}
+
+.p-news__text {
+  display: -webkit-box;
+  overflow: hidden;
+  word-break: break-word;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  grid-column: 1 / -1;
+  @include f_around(16, 28, map.get($font-weights, "medium"),6);
+
+  @include mq(md) {
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+  }
+}
+
+.p-news__text-inner {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+.p-news__more {
+  margin-left: auto;
+  margin-right: 0;
+  width: fit-content;
+}
+
+.p-news__more--head {
+  @include mq(md) {
+    justify-self: start;
+    margin-top:rem(22);
+    margin-left:rem(2);
+  }
+}
+
+.p-news__empty {
+  @include f_around(14, 21, map.get($font-weights, "bold"));
+}

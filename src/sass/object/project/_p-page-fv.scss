@@ -1,0 +1,56 @@
+@use "../../global" as *;
+
+.p-page-fv {
+  position: relative;
+  margin-top: rem(60);
+  min-height: rem(230);
+
+  @include mq(md) {
+    margin-top: rem(80);
+    min-height: rem(480);
+  }
+}
+
+.p-page-fv__picture,
+.p-page-fv__image {
+  display: block;
+  width: 100%;
+  min-height: rem(230);
+
+  @include mq(md) {
+    min-height: rem(480);
+  }
+}
+
+.p-page-fv__image {
+  object-fit: contain;
+  aspect-ratio: 375/230;
+  width:100%;
+  height:auto;
+
+  @include mq(md) {
+    aspect-ratio: 1440/480;
+  }
+}
+
+.p-page-fv__content {
+  position: absolute;
+  z-index: 1;
+  top: 46%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+
+  @include mq(md) {
+    top:47%;
+    left:50.5%;
+  }
+}
+
+.p-page-fv__heading {
+  margin-top: rem(14);
+
+  @include mq(md) {
+    margin-top: rem(20);
+  }
+}

@@ -1,0 +1,194 @@
+@use "sass:map";
+@use "../../global" as *;
+
+.p-fv {
+  position: relative;
+  left: auto;
+  width: 100%;
+  min-height: 600px;
+  transform: none;
+  color: $white;
+  background-color: $sub;
+
+  @include mq(md) {
+    min-height: rem(750);
+  }
+}
+
+.p-fv__inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 375 / 600;
+  min-height: inherit;
+  margin-inline: auto;
+
+  @include mq(md) {
+    aspect-ratio: 1440 / 750;
+  }
+}
+
+.p-fv__slider {
+  position: relative;
+}
+
+.p-fv__slide {
+  transition-timing-function: ease-in-out;
+}
+
+.p-fv__slider,
+.p-fv__wrapper,
+.p-fv__slide,
+.p-fv__picture,
+.p-fv__image {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 375 / 600;
+  min-height: inherit;
+
+  @include mq(md) {
+    aspect-ratio: 1440 / 750;
+  }
+}
+
+.p-fv__image {
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.p-fv__slide.is-fv-zooming .p-fv__image {
+  animation: fvZoom 7s linear forwards;
+}
+
+.p-fv__content {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 41%;
+  left: 0;
+  width: 100%;
+  margin-inline: auto;
+
+  @include mq(md) {
+    right: auto;
+    bottom: rem(95);
+    left: rem(55);
+    width: auto;
+    max-width: none;
+    margin-inline: 0;
+  }
+}
+
+.p-fv__lead {
+  display: flex;
+  gap: rem(10);
+  align-items: center;
+  font-family: $font-sub;
+  color:$white;
+  @include f_around(18, 28, map.get($font-weights, "semibold"), 10);
+
+  @include mq(md) {
+    @include f_around(40, 28, map.get($font-weights, "semibold"), 10);
+  }
+}
+
+.p-fv__lead::after {
+  content: "";
+  flex: 0 0 rem(125);
+  width: rem(125);
+  height: rem(2);
+  background-color: $white;
+  margin-top:rem(2);
+
+  @include mq(md) {
+    flex-basis: rem(230);
+    width: rem(230);
+    margin-left: rem(-5);
+  }
+}
+
+.p-fv__title {
+  font-family: $font-main;
+  @include f_around(32, 30, map.get($font-weights, "bold"), -3);
+
+  @include mq(md) {
+    margin-left:rem(-10);
+    @include f_around(62, false, map.get($font-weights, "extrabold"),-3);
+  }
+}
+
+.p-fv__title-accent {
+  display: inline-block;
+}
+
+.p-fv__title-accent--skill {
+  @include f_around(45, 65, map.get($font-weights, "bold"), -3);
+
+  @include mq(md) {
+    @include f_around(74,false, map.get($font-weights, "bold"), -3);
+  }
+}
+
+.p-fv__title-accent--partner {
+  @include f_around(48, 54, map.get($font-weights, "bold"));
+
+  @include mq(md) {
+    @include f_around(97, 87, map.get($font-weights, "bold"));
+  }
+}
+
+.p-fv__scroll {
+  display: none;
+
+  @include mq(md) {
+    position: absolute;
+    right: rem(57);
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: rem(40);
+    align-items: center;
+    color: $white;
+    font-family: $font-sub;
+    @include f_around(16, false, map.get($font-weights, "bold"),10);
+  }
+}
+
+.p-fv__scroll span {
+  display: inline-block;
+  writing-mode: horizontal-tb;
+  transform: rotate(90deg);
+  transform-origin: center;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.p-fv__scroll::after {
+  content: "";
+  width: 2px;
+  height: rem(120);
+  background: linear-gradient(
+    to bottom,
+    $text 0 rem(48),
+    rgba($white, 0.8) rem(48) rem(120)
+  );
+}
+
+@keyframes fvZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes copyFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,49 @@
+@use "../../global" as *;
+
+.c-page-top {
+  position: fixed;
+  right: rem(20);
+  bottom: rem(24);
+  display: none;
+  place-items: center;
+  inline-size: rem(70);
+  block-size: rem(70);
+  background: linear-gradient(0deg, $header-contact-gradient-start 0%, $header-contact-gradient-end 100%);
+  border-radius: 50%;
+  box-shadow: 0 rem(4) rem(10) rgba($sub, .18);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(rem(12));
+  transition:
+    opacity .4s ease,
+    transform .4s ease;
+  transform-origin: center;
+  @include set-z-index("tooltip");
+
+  @include mq(md) {
+    display: grid;
+    right: rem(55);
+    bottom: rem(31);
+  }
+}
+
+.c-page-top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.c-page-top.is-visible:hover {
+  opacity: $hover-opacity;
+  transform: translateY(0) scale(1.08);
+}
+
+.c-page-top__icon {
+  display: block;
+  inline-size: 0;
+  block-size: 0;
+  border-right: rem(12) solid transparent;
+  border-bottom: rem(20) solid $white;
+  border-left: rem(12) solid transparent;
+  transform: translateY(rem(-3));
+}

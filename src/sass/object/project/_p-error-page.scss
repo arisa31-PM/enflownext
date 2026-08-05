@@ -1,0 +1,97 @@
+@use "sass:map";
+@use "../../global" as *;
+
+.p-error-page {
+  background-color: $white;
+}
+
+.p-error-page__message {
+  padding-top: rem(135);
+  text-align: center;
+
+  @include mq(md) {
+    padding-top: rem(210);
+    margin-left: rem(15);
+  }
+}
+
+.p-error-page__title {
+  font-family: $font-sub;
+  color: $accent-blue;
+  @include f_around(24, 28, map.get($font-weights, "medium"), 5);
+
+  @include mq(md) {
+    @include f_around(60, 28, map.get($font-weights, "medium"), 5);
+  }
+}
+
+.p-error-page__text {
+  font-family:$font-main;
+  margin-top: rem(20);
+  color: $text;
+  @include f_around(14, 24, map.get($font-weights, "bold"),4);
+
+  @include mq(md) {
+    margin-top: rem(58);
+    @include f_around(24, 41, map.get($font-weights, "bold"),4);
+  }
+}
+
+.p-error-page__link {
+  margin: rem(60) auto 0;
+  transition:
+    opacity 0.3s,
+    box-shadow 0.3s,
+    transform 0.3s;
+
+  @include mq(md) {
+    margin-top: rem(50);
+  }
+}
+
+.p-error-page__link:hover {
+  opacity: 1;
+
+  @include mq(md) {
+    box-shadow: 0 rem(10) rem(18) rgba($sub, 0.22);
+    transform: translateY(rem(-2));
+  }
+}
+
+.p-error-page__common-cta.p-common-cta.c-cta {
+  padding-top: rem(100);
+  padding-bottom: rem(60);
+
+  @include mq(md) {
+    padding-top: rem(110);
+    padding-bottom: rem(78);
+    padding-left: 0;
+  }
+}
+
+.p-error-page__common-cta .p-common-cta__inner {
+  max-width: rem(380);
+  padding-inline: rem(20);
+
+  @include mq(md) {
+    max-width: rem(1400);
+    padding-inline: rem(50);
+  }
+}
+
+.p-error-page__common-cta .c-cta__item {
+  min-height: auto;
+  aspect-ratio: 335 / 210;
+
+  @include mq(md) {
+    aspect-ratio: 650 / 323;
+  }
+}
+
+.p-error-page__common-cta .c-cta__text {
+  left: rem(24);
+
+  @include mq(md) {
+    left: rem(40);
+  }
+}

@@ -1,0 +1,49 @@
+@use "sass:map";
+@use "../../global" as *;
+
+.c-gradient-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: rem(300);
+  min-height: rem(60);
+  padding: rem(17) rem(70) rem(15);
+  border: 0;
+  border-radius: rem(999);
+  color: $white;
+  font-family: $font-main;
+  text-align: center;
+  background-color: $main;
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20width%3D%229%22%20height%3D%2210%22%20viewBox%3D%220%200%209%2010%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M8.5%205L0.25%209.76314L0.25%200.23686L8.5%205Z%22%20fill%3D%22white%22/%3E%3C/svg%3E"),
+    linear-gradient(0deg, $main 0%, $main 41%, $sub 100%);
+  background-position:
+    right rem(45) center,
+    center;
+  background-size:
+    rem(16) rem(16),
+    100% 100%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  appearance: none;
+  transition: opacity 0.3s;
+  @include f_around(20, 18, map.get($font-weights, "bold"), 10);
+}
+
+.c-gradient-button:hover {
+  @include mq(md) {
+    opacity: $hover-opacity;
+  }
+}
+
+.c-gradient-button:focus-visible {
+  outline: rem(2) solid $accent-light-blue;
+  outline-offset: rem(4);
+}
+
+.c-gradient-button:disabled,
+.c-gradient-button[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.55;
+}

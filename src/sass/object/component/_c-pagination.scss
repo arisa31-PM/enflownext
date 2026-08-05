@@ -1,0 +1,63 @@
+@use "sass:map";
+@use "../../global" as *;
+
+.c-pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.c-pagination__list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: rem(20);
+}
+
+.c-pagination__item {
+  display: block;
+}
+
+.c-pagination__button,
+.c-pagination__number {
+  display: grid;
+  place-items: center;
+  width: rem(40);
+  height: rem(40);
+  border: rem(2) solid $main;
+  color: $main;
+  background-color: $white;
+  font-family: $font-main;
+  @include f_around(20, 20, map.get($font-weights, "bold"));
+  transition: color .3s, background-color .3s, opacity .3s;
+}
+
+.c-pagination__number {
+  border-color: $accent-blue;
+  color: $accent-blue;
+}
+
+.c-pagination__number--current {
+  border-color: $main;
+  color: $white;
+  background-color: $main;
+}
+
+.c-pagination__button--disabled {
+  opacity: .45;
+  pointer-events: none;
+}
+
+.c-pagination__button:not(.c-pagination__button--disabled):hover,
+.c-pagination__number:not(.c-pagination__number--current):hover,
+.c-pagination__button:not(.c-pagination__button--disabled):focus-visible,
+.c-pagination__number:not(.c-pagination__number--current):focus-visible {
+  color: $white;
+  background-color: $main;
+  opacity: 1;
+}
+
+.c-pagination__button:focus-visible,
+.c-pagination__number:focus-visible {
+  outline: rem(2) solid $accent-blue;
+  outline-offset: rem(3);
+}

@@ -1,0 +1,140 @@
+@use "global" as *;
+
+// インナー幅＋余白
+$breakpointInner: $innerWidth + strip-unit($padding-pc) * 2;
+
+// ルートフォント設定
+html {
+  // 376px ~ 767px
+  font-size: 100%;
+
+  // ~ 375px
+  @media (max-width: 375px) {
+    font-size: vw(375, 16);
+  }
+
+  // 768px ~ インナー幅＋余白
+  @include mq(md) {
+    font-size: vw(strip-unit($breakpointInner), 16);
+  }
+
+  // インナー幅＋余白 ~
+  @media ( min-width: $breakpointInner ) {
+    font-size: 100%;
+  }
+}
+
+
+// フォント、カラー設定
+body {
+  font-family: $font-main;
+  color: $text;
+  background-color: $white;
+  letter-spacing: 0;
+  width: 100%;
+  max-width: rem(600);
+  margin-inline: auto;
+
+  @include mq(md) {
+    max-width: none;
+  }
+}
+
+body.is-drawer-open {
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  #wpadminbar {
+    min-width: 0;
+  }
+}
+
+// クリック可能要素
+:where(
+  a[href],
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="checkbox"],
+  input[type="radio"],
+  select,
+  summary,
+  label[for],
+  [role="button"],
+  [tabindex]:not([tabindex="-1"])
+) {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:where(
+  a[href],
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="checkbox"],
+  input[type="radio"],
+  select,
+  summary,
+  label[for],
+  [role="button"],
+  [tabindex]:not([tabindex="-1"])
+) *,
+:where(
+  a[href],
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="checkbox"],
+  input[type="radio"],
+  select,
+  summary,
+  label[for],
+  [role="button"],
+  [tabindex]:not([tabindex="-1"])
+)::before,
+:where(
+  a[href],
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="checkbox"],
+  input[type="radio"],
+  select,
+  summary,
+  label[for],
+  [role="button"],
+  [tabindex]:not([tabindex="-1"])
+)::after {
+  cursor: inherit;
+}
+
+:where(button, input, select, textarea):disabled {
+  cursor: not-allowed;
+}
+
+// ホバー
+a,
+button {
+  @include mq(md) {
+    transition: .3s;
+    &:hover {
+      opacity: $hover-opacity;
+    }
+  }
+}
+
+// キーボード操作時のみフォーカスを表示する
+:where(a, button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus {
+  outline: none;
+}
+
+:where(a, button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: rem(2) solid $accent-light-blue;
+  outline-offset: rem(2);
+}

@@ -1,0 +1,29 @@
+@use "sass:map";
+@use "../../global" as *;
+
+.c-tag {
+  display: inline-flex;
+  width: fit-content;
+  white-space: nowrap;
+  padding: rem(1) rem(20);
+  color: $white;
+  background-color: $tag-blue;
+  text-align: center;
+  font-family: $font-main;
+  @include f_around(14, 24, map.get($font-weights, "bold"));
+
+  @include mq(md) {
+    padding-top:rem(3);
+    padding-inline:rem(13);
+  }
+}
+
+.c-tag--required {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: rem(3) rem(8);
+  color: $white;
+  background-color: $required-tag-bg;
+  @include f_around(14, 14, map.get($font-weights, "medium"), 4);
+}

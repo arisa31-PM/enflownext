@@ -1,0 +1,45 @@
+@use "../../global" as *;
+
+.c-slider-button {
+  display: block;
+  position: relative;
+  width: rem(35);
+  height: rem(35);
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: $main;
+  border: rem(1) solid $white;
+  transition: opacity 0.3s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+
+  @include mq(md) {
+    width: rem(38);
+    height: rem(38);
+  }
+}
+
+.c-slider-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: rem(12);
+  height: rem(12);
+  border-top: 1px solid $white;
+  border-right: 1px solid $white;
+}
+
+.c-slider-button--prev::before {
+  left: 60%;
+  transform: translate(-50%, -50%) rotate(-135deg);
+}
+
+.c-slider-button--next::before {
+  left: 40%;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.c-slider-button:hover {
+  opacity: $hover-opacity;
+}

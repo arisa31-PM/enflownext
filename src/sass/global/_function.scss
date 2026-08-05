@@ -1,0 +1,41 @@
+@use "sass:math";
+@use "sass:meta";
+
+// 単位を取り除く関数（25px → 25）
+@function strip-unit($value) {
+  @if math.is-unitless($value) {
+    @return $value;
+  }
+  @return math.div($value, $value * 0 + 1);
+}
+
+// rem関数: px値をremに変換
+@function rem($px) {
+  @return math.div($px, 16) * 1rem;
+}
+
+// フォントサイズ ÷ 画面幅 * 100vw の計算
+@function vw($window_width, $size) {
+  @return math.div($size, $window_width) * 100vw;
+}
+
+// デザイン幅に合わせたvw関数
+// 例：vw-xl(20) と書くことができる
+@function vw-xl($size) {
+  @return math.div($size, 1920) * 100vw;
+}
+
+// 例：vw-lg(20) と書くことができる
+@function vw-lg($size) {
+  @return math.div($size, 1440) * 100vw;
+}
+
+// 例：vw-m(20) と書くことができる
+@function vw-m($size) {
+  @return math.div($size, 767) * 100vw;
+}
+
+// 例：vw-s(20) と書くことができる
+@function vw-s($size) {
+  @return math.div($size, 375) * 100vw;
+}

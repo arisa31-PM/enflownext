@@ -1,0 +1,50 @@
+@use "sass:map";
+@use "../../global" as *;
+
+.c-page-heading {
+  display: grid;
+  align-content: start;
+  color: $white;
+}
+
+.c-page-heading__title {
+  font-family: $font-sub;
+  color: $white;
+  @include f_around(36, false, map.get($font-weights, "medium"));
+
+  @include mq(md) {
+    @include f_around(60, false, map.get($font-weights, "medium"));
+  }
+}
+
+.c-page-heading__sub {
+  position: relative;
+  margin-top: rem(-5);
+  padding-left: rem(29);
+  color: $white;
+  @include f_around(13, false, map.get($font-weights, "bold"), 6);
+
+  @include mq(md) {
+    margin-top: rem(-20);
+    margin-left:rem(-8);
+    padding-left: rem(50);
+    @include f_around(16, false, map.get($font-weights, "bold"), 6);
+  }
+}
+
+.c-page-heading__sub::before {
+  content: "";
+  position: absolute;
+  top: calc(50% - 2px);
+  left: rem(3);
+  width: rem(16);
+  height: rem(4);
+  background: $section-heading-marker-background;
+  transform: translateY(-50%);
+
+  @include mq(md) {
+    top: calc(50% + 2px);
+    left: rem(8);
+    width: rem(32);
+  }
+}

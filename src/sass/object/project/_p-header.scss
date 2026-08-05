@@ -1,0 +1,326 @@
+@use "sass:map";
+@use "../component" as marker;
+@use "../../global" as *;
+
+.p-header {
+  width: 100%;
+  color: $text;
+  background-color: $white;
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s,
+    color 0.3s;
+
+  @include mq(md) {
+    color: $text;
+    background-color: transparent;
+  }
+}
+
+.p-header.is-scrolled,
+.p-header.is-open {
+  color: $text;
+  background-color: $white;
+  box-shadow: 0 rem(10) rem(10) rgba($font-black, 0.1);
+}
+
+.p-header a,
+.p-header button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.p-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-inline: auto;
+  padding-left: rem(19);
+  min-height: rem(60);
+  background-color: $white;
+  transition: box-shadow 0.3s;
+
+  @include mq(md) {
+    max-width: none;
+    padding-left: rem(24);
+    min-height: rem(80);
+    background-color: transparent;
+  }
+}
+
+.p-header.is-scrolled .p-header__inner,
+.p-header.is-open .p-header__inner {
+  @include mq(md) {
+    background-color: $white;
+  }
+}
+
+.p-header__logo {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding-inline: rem(15);
+  margin-left: rem(-15);
+  font-family: $font-sub;
+  white-space: nowrap;
+  @include f_around(28, 28, map.get($font-weights, "semibold"), 10);
+
+  @include mq(md) {
+    margin-left: 0;
+    position: relative;
+    left: rem(-8);
+    @include f_around(28, 28, map.get($font-weights, "semibold"), 10);
+  }
+}
+
+.p-header__nav {
+  display: none;
+
+  @include mq(md) {
+    display: block;
+    align-self: stretch;
+    margin-left: auto;
+  }
+}
+
+.p-header__nav-list {
+  display: flex;
+  align-items: center;
+  gap: rem(24);
+
+  @include mq(md) {
+    align-items: stretch;
+    gap: rem(18);
+    min-height: rem(80);
+  }
+}
+
+.p-header__nav-link {
+  display: grid;
+  gap: rem(5);
+  // min-width: rem(54);
+  color: inherit;
+  text-align: center;
+
+  @include mq(md) {
+    place-content: center;
+    min-height: rem(80);
+    margin-inline: rem(-15);
+    padding-inline: rem(15);
+  }
+}
+
+.p-header__nav-link > * {
+  @include mq(md) {
+    position: relative;
+    top: rem(5);
+  }
+}
+
+.p-header__nav-link:hover {
+  color: $main;
+  opacity: 1;
+}
+
+.p-header__nav-main {
+  font-family: $font-sub;
+  @include f_around(12, 12, map.get($font-weights, "black"));
+
+  @include mq(md) {
+    @include f_around(14, 28, map.get($font-weights, "semibold"), 10);
+  }
+}
+
+.p-header__nav-sub {
+  @include f_around(9, 9, map.get($font-weights, "bold"));
+}
+
+.p-header__contact {
+  display: grid;
+  align-self: stretch;
+  place-items: center;
+  line-height: 0;
+  width: rem(60);
+  min-width: 44px;
+  min-height: 44px;
+  aspect-ratio: 1 / 1;
+  margin-left: auto;
+  background: linear-gradient(
+    0deg,
+    $header-contact-gradient-start 0%,
+    $header-contact-gradient-end 100%
+  );
+
+  @include mq(md) {
+    display: flex;
+    gap: rem(8);
+    width: rem(155);
+    min-width: 155px;
+    min-height: rem(80);
+    aspect-ratio: auto;
+    margin-left: rem(18);
+    color: $white;
+    font-family: $font-main;
+    @include f_around(16, 28, map.get($font-weights, "semibold"), 10);
+    justify-content: center;
+    align-items: center;
+    padding-left: rem(18);
+    // padding-right: rem(5);
+  }
+}
+
+.p-header__contact img {
+  width: rem(24);
+  height: auto;
+  aspect-ratio: 24/18;
+  display: block;
+
+  @include mq(md) {
+    width: rem(27);
+  }
+}
+
+.p-header__contact span {
+  display: none;
+
+  @include mq(md) {
+    display: inline;
+  }
+}
+
+.p-header__menu-button {
+  position: relative;
+  display: grid;
+  align-self: stretch;
+  place-content: center;
+  line-height: 0;
+  width: rem(60);
+  min-width: 44px;
+  min-height: 44px;
+  aspect-ratio: 1 / 1;
+  background-color: $main;
+  @include mq(md) {
+    display: none;
+  }
+}
+
+.p-header__menu-button img {
+  width: rem(22);
+  height: auto;
+  display: block;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.p-header__menu-button::before,
+.p-header__menu-button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: rem(23);
+  height: rem(2);
+  background-color: $white;
+  border-radius: rem(999);
+  opacity: 0;
+  transition:
+    opacity 0.35s ease 0.08s,
+    transform 0.35s ease 0.08s;
+}
+
+.p-header__menu-button::before {
+  transform: translate(-50%, -50%) rotate(25deg) scaleX(0.6);
+}
+
+.p-header__menu-button::after {
+  transform: translate(-50%, -50%) rotate(-25deg) scaleX(0.6);
+}
+
+.p-header__menu-button[aria-expanded="true"] img {
+  opacity: 0;
+  transform: scale(0.85) rotate(8deg);
+}
+
+.p-header__menu-button[aria-expanded="true"]::before {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(35deg) scaleX(1);
+}
+
+.p-header__menu-button[aria-expanded="true"]::after {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(-35deg) scaleX(1);
+}
+
+.p-header__drawer {
+  visibility: hidden;
+  position: fixed;
+  inset: rem(60) 0 0;
+  padding: rem(62) rem(20);
+  overflow-y: auto;
+  background-color: $white;
+  opacity: 0;
+  transform: translateY(rem(-8));
+  transition:
+    visibility 0.3s,
+    opacity 0.3s,
+    transform 0.3s;
+  width: 100%;
+
+  @include mq(md) {
+    display: none;
+  }
+}
+
+.p-header__drawer.is-open {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.p-header__drawer-list {
+  max-width: rem(600);
+  margin-inline: auto;
+}
+
+.p-header__drawer-item {
+  border-bottom: 1px solid $surface-border-strong;
+}
+
+.p-header__drawer-link {
+  display: grid;
+  gap: 0;
+  padding-top: rem(14);
+  padding-bottom: rem(15);
+  color: $text;
+}
+
+.p-header__drawer-item:first-child .p-header__drawer-link {
+  margin-top: rem(-14);
+}
+
+.p-header__drawer-main {
+  color: $main;
+  font-family: $font-sub;
+  @include f_around(16, 23, map.get($font-weights, "semibold"), 10);
+}
+
+.p-header__drawer-sub {
+  position: relative;
+  padding-left: rem(27);
+  color: $text;
+  font-family: $font-main;
+  @include f_around(12, false, map.get($font-weights, "bold"), 6);
+}
+
+.p-header__drawer-sub::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: rem(3);
+  width: rem(16);
+  height: rem(2);
+  background: marker.$marker-line-background;
+  transform: translateY(-50%);
+}
