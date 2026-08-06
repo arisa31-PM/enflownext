@@ -23,7 +23,7 @@ const assetsPath = {
 const browserSync = require("browser-sync");
 const browserSyncOption = {
   proxy: 'http://enflownext.local',
-  open: false,
+  open: true,
   notify: false,
 };
 const browserSyncFunc = (done) => {
