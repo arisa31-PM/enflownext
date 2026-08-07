@@ -79,7 +79,7 @@
             </li>
           <?php endforeach; ?>
         </ul>
-        <a class="p-footer__privacy" href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">プライバシーポリシー</a>
+        <a class="p-footer__privacy" href="">プライバシーポリシー</a>
       </div>
       <nav class="p-footer__nav" aria-label="フッターナビゲーション">
         <ul class="p-footer__nav-list">

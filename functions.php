@@ -890,11 +890,23 @@ function my_is_hiragana_validation_target( $tag ) {
 		return true;
 	}
 
-	if ( empty( $tag->className ) ) {
-		return false;
+	$class_names = '';
+
+	if ( method_exists( $tag, 'get_class_option' ) ) {
+		$class_names = (string) $tag->get_class_option( '' );
+	} elseif ( ! empty( $tag->className ) ) {
+		$class_names = (string) $tag->className;
 	}
 
-	$classes = preg_split( '/\s+/', (string) $tag->className );
+	if ( ! empty( $tag->options ) && is_array( $tag->options ) ) {
+		foreach ( $tag->options as $option ) {
+			if ( 0 === strpos( (string) $option, 'class:' ) ) {
+				$class_names .= ' ' . substr( (string) $option, 6 );
+			}
+		}
+	}
+
+	$classes = preg_split( '/\s+/', trim( $class_names ) );
 
 	if ( empty( $classes ) || ! is_array( $classes ) ) {
 		return false;

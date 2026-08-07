@@ -527,6 +527,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const contactThanksUrl = contactPageForm?.dataset.thanksUrl || "";
   let isContactConfirm = false;
   let hasContactThanksRedirected = false;
+  const contactSubmitSelector = '.wpcf7-submit, .wpcf7cp-cfm-btn, .wpcf7cp-cfm-button, input[type="submit"], button[type="submit"]';
 
   const isTouchDevice =
     window.matchMedia("(pointer: coarse)").matches ||
@@ -636,7 +637,9 @@ document.addEventListener("DOMContentLoaded", () => {
     return (
       field.required ||
       field.getAttribute("aria-required") === "true" ||
-      field.classList.contains("wpcf7-validates-as-required")
+      field.classList.contains("wpcf7-validates-as-required") ||
+      Boolean(field.closest(".wpcf7-validates-as-required")) ||
+      Boolean(field.closest(".wpcf7-acceptance"))
     );
   };
 
@@ -667,22 +670,24 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const updateContactSubmitState = (form) => {
-    const submitButton = form.querySelector(".wpcf7-submit");
+    const submitButtons = form.querySelectorAll(contactSubmitSelector);
 
-    if (!submitButton) {
+    if (0 === submitButtons.length) {
       return;
     }
 
     const isComplete = isFieldSetComplete(form);
 
-    submitButton.disabled = !isComplete;
-    submitButton.setAttribute("aria-disabled", String(!isComplete));
+    submitButtons.forEach((submitButton) => {
+      submitButton.disabled = !isComplete;
+      submitButton.setAttribute("aria-disabled", String(!isComplete));
+    });
   };
 
   contactForms.forEach((form) => {
-    const submitButton = form.querySelector(".wpcf7-submit");
+    const submitButtons = form.querySelectorAll(contactSubmitSelector);
 
-    if (!submitButton) {
+    if (0 === submitButtons.length) {
       return;
     }
 
@@ -690,13 +695,33 @@ document.addEventListener("DOMContentLoaded", () => {
       updateContactSubmitState(form);
     };
 
-    submitButton.disabled = true;
-    submitButton.setAttribute("aria-disabled", "true");
+    const syncSubmitStateAfterPlugin = () => {
+      syncSubmitState();
+      window.requestAnimationFrame(syncSubmitState);
+    };
+
+    submitButtons.forEach((submitButton) => {
+      submitButton.disabled = true;
+      submitButton.setAttribute("aria-disabled", "true");
+    });
 
     syncSubmitState();
 
-    form.addEventListener("input", syncSubmitState);
-    form.addEventListener("change", syncSubmitState);
+    form.addEventListener("input", syncSubmitStateAfterPlugin);
+    form.addEventListener("change", syncSubmitStateAfterPlugin);
+    form.addEventListener("click", (event) => {
+      if (!event.target.closest(contactSubmitSelector)) {
+        return;
+      }
+
+      if (isFieldSetComplete(form)) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+      syncSubmitState();
+    }, true);
     form.addEventListener("reset", () => {
       window.requestAnimationFrame(syncSubmitState);
     });

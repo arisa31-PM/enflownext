@@ -120,9 +120,11 @@
   }
 }
 
-.p-footer__nav-link:hover {
-  color: $main;
-  opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+  .p-footer__nav-link:hover {
+    color: $main;
+    opacity: 1;
+  }
 }
 
 .p-footer__nav-main {
