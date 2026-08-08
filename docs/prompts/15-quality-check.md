@@ -8,6 +8,8 @@
 - `12-wordpress-checklist.md`
 - `14-production-checklist.md`
 
+Codexでは確認できない項目は、ユーザー確認用チェックシートとして `17-user-checklist.md` を参照してください。
+
 このファイルには、プロジェクト情報、読み込み順、品質チェックの進め方、報告形式のみを記載します。
 
 ---
@@ -52,11 +54,17 @@ WordPressサイトの場合は、品質チェックリストを以下の順番�
 1. `13-static-checklist.md`
 2. `12-wordpress-checklist.md`
 3. `14-production-checklist.md`
+4. `15-quality-check.md`
+5. `17-user-checklist.md`
+6. `16-quality-report.md`
 
 静的サイトの場合は、品質チェックリストを以下の順番で読むこと。
 
 1. `13-static-checklist.md`
 2. `14-production-checklist.md`
+3. `15-quality-check.md`
+4. `17-user-checklist.md`
+5. `16-quality-report.md`
 
 ---
 
@@ -194,10 +202,38 @@ docs/quality-reports/
 
 - 推測でOK判定しない
 - 確認できないものは未確認とする
+- Codexが確認できない項目は `17-user-checklist.md` でユーザーが確認する項目として扱う
+- Codexは `17-user-checklist.md` の内容を品質チェック対象としてOK判定しない
+- Codexは `17-user-checklist.md` の内容を推測でOK判定してはいけない
 - 既存ルールを守る
 - 対象外ファイルを修正しない
 - コーディングルールは原則であり、アクセシビリティ・ブラウザ仕様・画像比率維持・アニメーション・保守性など合理的な理由がある場合は例外として許容する
 - 例外を発見した場合は、修正せず理由をレポートへ記載する
+
+### 画像のalt・アクセシビリティ確認
+
+`13-static-checklist.md` の「imgのaltが適切であること」およびSEO・head内の「altが適切であること」は、以下の基準で確認すること。
+
+- テーマ内のimg要素を横断的に確認し、代表ページだけを確認して完了としない
+- alt属性の有無だけではなく、画像の用途、周囲のテキスト、リンク・ボタンの構造、aria属性、SVGの実装方法を確認したうえで総合的に判定する
+- コンテンツの理解に必要な画像には、その画像の目的・内容を適切に表すaltが設定されていることを確認する
+- 画像の内容と無関係なalt、ファイル名だけのalt、機械的に生成された意味の薄いaltになっていないか確認する
+- 装飾のみを目的とする画像は `alt=""` とし、スクリーンリーダーで不要な読み上げが発生しないことを確認する
+- リンクまたはボタン内の画像・アイコンは、画像単体ではなくリンクまたはボタン全体として目的を判断できるアクセシブルネームが確保されているか確認する
+- 画像以外のテキスト、`aria-label`、`aria-labelledby` などで目的が明確な場合は、画像側を装飾として扱うことを許容する
+- 画像のaltと周囲のテキストが同じ内容になり、スクリーンリーダーで重複して読み上げられないか確認する
+- SVGは `img` 要素として読み込むSVGとinline SVGを区別し、inline SVGに対して機械的にalt未設定としてNG判定しない
+- SNSアイコンなど、アイコン自体がリンクの目的を示す場合は、リンク全体としてInstagram、Xなどの目的を認識できるアクセシブルネームがあるか確認する
+- `aria-label`、`aria-labelledby`、`aria-hidden` が使用されている場合は、その役割も含めて判定する
+
+以下のような機械的判定は禁止する。
+
+- `alt` あり = OK
+- `alt` なし = NG
+- `alt=""` = NG
+- SVGにaltなし = NG
+
+合理的な理由で `alt=""` や `aria-hidden="true"` が使用されている場合は、既存の「合理的な理由がある場合は例外として許容する」ルールに従い、不要な修正を行わないこと。
 
 実行モードの扱いは以下とする。
 
@@ -297,6 +333,13 @@ Codexが本番管理画面を確認できない場合は、以下のように扱
 - 「本番管理画面では未確認」と明記する
 - ユーザーに確認してほしい具体的な設定項目を記載する
 
+### Contact Form 7
+
+- 管理者メールアドレス（設定 → 一般）が本番用メールアドレスになっていること
+- 管理者宛メールが受信できること
+- 自動返信メールが受信できること
+- Localドメイン（*.local）宛になっていないこと
+
 推測で「修正必要」と判定してはいけない。
 
 Local URLへ接続できない場合は、Localが起動していない可能性があるため、Local画面・Local管理画面・Localの現在設定は「➖ 確認不可」として扱うこと。
@@ -344,6 +387,12 @@ Playwrightが利用できない場合は、理由を報告すること。
 - `13-static-checklist.md`
 - `12-wordpress-checklist.md`
 - `14-production-checklist.md`
+
+Codexで確認できない実機・実画面・管理画面専用の確認項目は、`17-user-checklist.md` を参照し、ユーザー確認として分類すること。
+
+`17-user-checklist.md` はユーザー自身が使用するチェックシートであり、Codexの品質チェック対象として扱わないこと。
+
+Codexは `17-user-checklist.md` の項目を推測でOK判定してはいけない。
 
 ---
 
@@ -517,6 +566,10 @@ WordPress管理画面や実機・ブラウザ確認など、ユーザーしか�
 - `13-static-checklist.md`
 - `12-wordpress-checklist.md`
 - `14-production-checklist.md`
+
+Codexで確認できない項目は、`17-user-checklist.md` でユーザーが確認してください。
+
+Codexは `17-user-checklist.md` の内容を品質チェック対象とせず、推測でOK判定してはいけません。
 
 `15-quality-check.md` へチェック項目を重複して記載しないでください。
 

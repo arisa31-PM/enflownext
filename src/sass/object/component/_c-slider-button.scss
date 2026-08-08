@@ -28,6 +28,7 @@
   height: rem(12);
   border-top: 1px solid $white;
   border-right: 1px solid $white;
+  pointer-events: none;
 }
 
 .c-slider-button--prev::before {

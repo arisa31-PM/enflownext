@@ -73,6 +73,9 @@
 13-static-checklist.md
 12-wordpress-checklist.md
 14-production-checklist.md
+15-quality-check.md
+17-user-checklist.md
+16-quality-report.md
 ```
 
 用途
@@ -94,6 +97,9 @@
 13-static-checklist.md
 12-wordpress-checklist.md
 14-production-checklist.md
+15-quality-check.md
+17-user-checklist.md
+16-quality-report.md
 ```
 
 用途
@@ -149,5 +155,6 @@ docs/quality-reports/
 3. 静的サイト・WordPress共通のフロントエンド品質チェックを実施する
 4. WordPress案件ではWordPress固有の品質チェックを実施する
 5. 本番公開前・納品前チェックを実施する
-6. 問題があれば修正してからコードを出力する
-7. すべて問題がなければ「納品・提出可能」と判断する
+6. Codexで確認できない項目は `17-user-checklist.md` でユーザー確認とする
+7. 問題があれば修正してからコードを出力する
+8. すべて問題がなければ「納品・提出可能」と判断する

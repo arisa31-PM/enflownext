@@ -130,12 +130,14 @@ function my_news_category_labels( $args, $taxonomy, $object_type ) {
 add_filter( 'register_taxonomy_args', 'my_news_category_labels', 10, 3 );
 
 /**
- * 管理画面の「投稿」メニューアイコンをお知らせ向けに変更する
+ * 管理画面メニューをサイト運用向けに整理する
  *
  * @return void
  */
-function my_news_admin_menu_icon() {
+function my_admin_menu_setup() {
 	global $menu;
+
+	remove_menu_page( 'edit-comments.php' );
 
 	if ( empty( $menu ) || ! is_array( $menu ) ) {
 		return;
@@ -144,11 +146,82 @@ function my_news_admin_menu_icon() {
 	foreach ( $menu as $index => $item ) {
 		if ( isset( $item[2] ) && 'edit.php' === $item[2] ) {
 			$menu[ $index ][6] = 'dashicons-megaphone';
-			break;
+			continue;
+		}
+
+		if ( isset( $item[2] ) && 'edit.php?post_type=works' === $item[2] ) {
+			$menu[ $index ][0] = '実績';
+			$menu[ $index ][3] = '実績';
+			continue;
+		}
+
+		if ( isset( $item[2] ) && 'wpcf7' === $item[2] ) {
+			$menu[ $index ][0] = preg_replace( '/^Contact/u', 'お問い合わせ', (string) $item[0] );
+			$menu[ $index ][3] = 'お問い合わせ';
 		}
 	}
 }
-add_action( 'admin_menu', 'my_news_admin_menu_icon', 999 );
+add_action( 'admin_menu', 'my_admin_menu_setup', 999 );
+
+/**
+ * 管理画面メニューのカスタム並び替えを有効にする
+ *
+ * @return bool
+ */
+function my_enable_admin_menu_order() {
+	return true;
+}
+add_filter( 'custom_menu_order', 'my_enable_admin_menu_order' );
+
+/**
+ * 管理画面メニューをサイト運用時に使う順番へ並び替える
+ *
+ * @param array $menu_order 現在の管理画面メニュー順。
+ * @return array
+ */
+function my_admin_menu_order( $menu_order ) {
+	if ( empty( $menu_order ) || ! is_array( $menu_order ) ) {
+		return $menu_order;
+	}
+
+	$preferred_order = array(
+		'index.php',
+		'edit.php',
+		'edit.php?post_type=works',
+		'upload.php',
+		'edit.php?post_type=page',
+		'wpcf7',
+		'separator1',
+		'themes.php',
+		'plugins.php',
+		'users.php',
+		'tools.php',
+		'options-general.php',
+		'separator2',
+		'edit.php?post_type=smart-custom-fields',
+		'ssp_main_setting',
+		'cptui_main_menu',
+		'siteguard',
+		'ai1wm_export',
+	);
+
+	$ordered_menu = array();
+
+	foreach ( $preferred_order as $menu_slug ) {
+		if ( in_array( $menu_slug, $menu_order, true ) ) {
+			$ordered_menu[] = $menu_slug;
+		}
+	}
+
+	foreach ( $menu_order as $menu_slug ) {
+		if ( ! in_array( $menu_slug, $ordered_menu, true ) ) {
+			$ordered_menu[] = $menu_slug;
+		}
+	}
+
+	return $ordered_menu;
+}
+add_filter( 'menu_order', 'my_admin_menu_order' );
 
 /**
  * お知らせ一覧URLを取得する
