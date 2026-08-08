@@ -74,6 +74,43 @@ if ( 0 >= $post_id ) {
 }
 
 $use_dynamic_image = 0 < $post_id;
+
+if ( ! $use_dynamic_image ) {
+	$resolve_static_fv_image = static function ( $image_filename, $fallback_width, $fallback_height ) {
+		$image_filename = ltrim( (string) $image_filename, '/' );
+		$image_path     = get_theme_file_path( 'assets/images/' . $image_filename );
+		$image_fallback = preg_replace( '/\.webp$/i', '.png', $image_filename );
+		$fallback_path  = get_theme_file_path( 'assets/images/' . $image_fallback );
+
+		if ( ! file_exists( $image_path ) && ! file_exists( $fallback_path ) ) {
+			$image_filename = 'no-image.webp';
+			$image_path     = get_theme_file_path( 'assets/images/no-image.webp' );
+			$image_fallback = 'no-image.png';
+			$fallback_path  = get_theme_file_path( 'assets/images/no-image.png' );
+		}
+
+		$size_path = file_exists( $fallback_path ) ? $fallback_path : $image_path;
+
+		if ( file_exists( $size_path ) ) {
+			$image_size = wp_getimagesize( $size_path );
+
+			if ( is_array( $image_size ) && isset( $image_size[0], $image_size[1] ) ) {
+				$fallback_width  = (int) $image_size[0];
+				$fallback_height = (int) $image_size[1];
+			}
+		}
+
+		return array(
+			'webp'     => file_exists( $image_path ) ? $image_filename : '',
+			'fallback' => file_exists( $fallback_path ) ? $image_fallback : $image_filename,
+			'width'    => $fallback_width,
+			'height'   => $fallback_height,
+		);
+	};
+
+	$static_image_pc = $resolve_static_fv_image( $image_pc, $width_pc, $height_pc );
+	$static_image_sp = $resolve_static_fv_image( $image_sp, $width_sp, $height_sp );
+}
 ?>
 
 <section class="p-page-fv" aria-label="<?php echo esc_attr( $title ); ?>">
@@ -97,10 +134,14 @@ $use_dynamic_image = 0 < $post_id;
 		?>
 	<?php else : ?>
 		<picture class="p-page-fv__picture skip-lazy" data-skip-lazy="1">
-			<source srcset="<?php echo esc_url( $theme_uri . '/assets/images/' . $image_pc ); ?>" media="(min-width: 768px)" type="image/webp">
-			<source srcset="<?php echo esc_url( $theme_uri . '/assets/images/' . str_replace( '.webp', '.png', $image_pc ) ); ?>" media="(min-width: 768px)" type="image/png">
-			<source srcset="<?php echo esc_url( $theme_uri . '/assets/images/' . $image_sp ); ?>" type="image/webp">
-			<img class="p-page-fv__image skip-lazy" src="<?php echo esc_url( $theme_uri . '/assets/images/' . str_replace( '.webp', '.png', $image_sp ) ); ?>" alt="" width="<?php echo esc_attr( $width_sp ); ?>" height="<?php echo esc_attr( $height_sp ); ?>" loading="eager" fetchpriority="high" decoding="async" data-skip-lazy="1">
+			<?php if ( ! empty( $static_image_pc['webp'] ) ) : ?>
+				<source srcset="<?php echo esc_url( $theme_uri . '/assets/images/' . $static_image_pc['webp'] ); ?>" media="(min-width: 768px)" type="image/webp">
+			<?php endif; ?>
+			<source srcset="<?php echo esc_url( $theme_uri . '/assets/images/' . $static_image_pc['fallback'] ); ?>" media="(min-width: 768px)">
+			<?php if ( ! empty( $static_image_sp['webp'] ) ) : ?>
+				<source srcset="<?php echo esc_url( $theme_uri . '/assets/images/' . $static_image_sp['webp'] ); ?>" type="image/webp">
+			<?php endif; ?>
+			<img class="p-page-fv__image skip-lazy" src="<?php echo esc_url( $theme_uri . '/assets/images/' . $static_image_sp['fallback'] ); ?>" alt="" width="<?php echo esc_attr( $static_image_sp['width'] ); ?>" height="<?php echo esc_attr( $static_image_sp['height'] ); ?>" loading="eager" fetchpriority="high" decoding="async" data-skip-lazy="1">
 		</picture>
 	<?php endif; ?>
 	<div class="p-page-fv__content l-inner">

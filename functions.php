@@ -1,19 +1,14 @@
 <?php
 /**
- * Functions
- */
-/**
  * WordPress標準機能
-  *
- * @codex https://wpdocs.osdn.jp/%E9%96%A2%E6%95%B0%E3%83%AA%E3%83%95%E3%82%A1%E3%83%AC%E3%83%B3%E3%82%B9/add_theme_support
  */
 function my_setup() {
-	add_theme_support( 'post-thumbnails' ); /* アイキャッチ */
-	add_theme_support( 'automatic-feed-links' ); /* RSSフィード */
-	add_theme_support( 'title-tag' ); /* タイトルタグ自動生成 */
+	add_theme_support( 'post-thumbnails' );
+	add_theme_support( 'automatic-feed-links' );
+	add_theme_support( 'title-tag' );
 	add_theme_support(
 		'html5',
-		array( /* HTML5のタグで出力 */
+		array(
 			'search-form',
 			'comment-form',
 			'comment-list',
@@ -30,6 +25,8 @@ function my_setup() {
 	);
 }
 add_action( 'after_setup_theme', 'my_setup' );
+
+remove_action( 'wp_head', 'wp_generator' );
 
 /**
  * 通常投稿を「お知らせ」として運用するための設定
@@ -1254,7 +1251,6 @@ add_action( 'bcn_after_fill', 'my_thanks_breadcrumb_trail', 10, 1 );
 
 /**
  * CSSとJavaScriptの読み込み
- *
  */
 function my_script_init(){
 	$is_debug = defined( 'WP_DEBUG' ) && WP_DEBUG;
@@ -1267,25 +1263,20 @@ function my_script_init(){
 
 
 	if ( is_front_page() || is_singular( 'works' ) ) {
-		// Swiper CSS 8.3.2
 		wp_enqueue_style('swiper-8.3.2', get_template_directory_uri() . '/assets/css/swiper-bundle.min.css', array(), '8.3.2', 'all');
 	}
 
-	// Google Fonts
 	wp_enqueue_style('GoogleFonts', 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Open+Sans+Condensed:wght@700&family=Roboto:wght@400;500;700;900&display=swap', array(), null);
 
-	// カスタムCSS
 	wp_enqueue_style('custom-style', get_template_directory_uri() . $css_rel, array(), $css_version, 'all');
 
 	$js_dependencies = array();
 
 	if ( is_front_page() || is_singular( 'works' ) ) {
-		// Swiper JS 8.3.2
 		wp_enqueue_script('swiper-8.3.2', get_template_directory_uri() . '/assets/js/swiper-bundle.min.js', array(), '8.3.2', true);
 		$js_dependencies[] = 'swiper-8.3.2';
 	}
 
-	// カスタムJS
 	wp_enqueue_script('custom', get_template_directory_uri() . $js_rel, $js_dependencies, $js_version, true);
 }
 add_action('wp_enqueue_scripts', 'my_script_init');
