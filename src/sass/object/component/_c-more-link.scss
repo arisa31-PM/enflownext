@@ -31,56 +31,23 @@
 
 .c-more-link__icon {
   flex-shrink: 0;
-  position: relative;
   display: inline-block;
   width: 42px;
   height: 42px;
-}
-
-.c-more-link__icon::before,
-.c-more-link__icon::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-}
-
-.c-more-link__icon::before {
-  width: rem(30);
-  height: rem(30);
-  background: linear-gradient(
-    0deg,
-    $header-contact-gradient-start 0%,
-    $header-contact-gradient-end 100%
-  );
-  border-radius: 50%;
-  transform: translate(-50%, -50%) scale(1);
+  background-image: url("../images/icons/icon-arrow-circle-navy.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: rem(30) rem(30);
   transition: transform 0.3s ease;
 
   @include mq(md) {
-    width: rem(42);
-    height: rem(42);
-  }
-}
-
-.c-more-link__icon::after {
-  width: 0;
-  height: 0;
-  border-top: rem(6) solid transparent;
-  border-bottom: rem(6) solid transparent;
-  border-left: rem(12) solid $white;
-  transform: translate(-42%, -50%);
-
-  @include mq(md) {
-    border-top: rem(8) solid transparent;
-    border-bottom: rem(8) solid transparent;
-    border-left: rem(16) solid $white;
+    background-size: rem(42) rem(42);
   }
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .c-more-link:hover .c-more-link__icon::before {
-    transform: translate(-50%, -50%) scale(1.3333);
+  .c-more-link:hover .c-more-link__icon {
+    transform: scale(1.3333);
   }
 
   .c-more-link:hover .c-more-link__text {
@@ -88,10 +55,6 @@
   }
 }
 
-.c-more-link--white .c-more-link__icon::before {
-  background: $white;
-}
-
-.c-more-link--white .c-more-link__icon::after {
-  border-left-color: $main;
+.c-more-link--white .c-more-link__icon {
+  background-image: url("../images/icons/icon-arrow-circle-white.svg");
 }

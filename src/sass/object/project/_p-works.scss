@@ -158,8 +158,8 @@
 
 .p-works__more {
   margin-top: rem(-3);
+  margin-right:rem(-7);
   margin-left: auto;
-  margin-right: 0;
   width: fit-content;
 
   @include mq(md) {

@@ -49,13 +49,13 @@
 
 .p-profile__more {
   margin-left: auto;
-  margin-right: 0;
+  margin-right: rem(-7);
   width: fit-content;
 
   @include mq(md) {
     position: absolute;
     top: rem(182);
-    right: rem(335);
+    right: rem(342);
     margin-top: 0;
     justify-self: auto;
   }
