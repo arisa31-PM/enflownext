@@ -17,10 +17,6 @@
   @include mq(md) {
     padding-inline: 25px;
   }
-
-  @media (min-width: #{$innerWidth + $padding-pc * 2}) {
-    padding-inline: rem(7);
-  }
 }
 
 .p-profile__head {

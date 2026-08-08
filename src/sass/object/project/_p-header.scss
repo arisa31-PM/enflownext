@@ -123,6 +123,10 @@
   opacity: 1;
 }
 
+.p-header__nav-link.is-current {
+  color: $main;
+}
+
 .p-header__nav-main {
   font-family: $font-sub;
   @include f_around(12, 12, map.get($font-weights, "black"));
@@ -294,6 +298,14 @@
   padding-top: rem(14);
   padding-bottom: rem(15);
   color: $text;
+}
+
+.p-header__drawer-link.is-current {
+  color: $main;
+}
+
+.p-header__drawer-link.is-current .p-header__drawer-sub {
+  color: $main;
 }
 
 .p-header__drawer-item:first-child .p-header__drawer-link {

@@ -16,28 +16,49 @@
     $profile_url = function_exists( 'my_get_page_url' ) ? my_get_page_url( 'profile' ) : home_url( '/profile/' );
     $faq_url = function_exists( 'my_get_page_url' ) ? my_get_page_url( 'faq' ) : home_url( '/faq/' );
     $contact_url = function_exists( 'my_get_page_url' ) ? my_get_page_url( 'contact' ) : home_url( '/contact/' );
+    $current_nav_key = '';
+
+    if ( is_post_type_archive( 'works' ) || is_singular( 'works' ) || is_tax( 'works_category' ) ) {
+      $current_nav_key = 'works';
+    } elseif ( is_page( 'price' ) ) {
+      $current_nav_key = 'price';
+    } elseif ( is_page( 'profile' ) ) {
+      $current_nav_key = 'profile';
+    } elseif ( is_home() || is_category() || is_tag() || is_date() || is_singular( 'post' ) ) {
+      $current_nav_key = 'news';
+    } elseif ( is_page( 'faq' ) ) {
+      $current_nav_key = 'faq';
+    } elseif ( is_page( array( 'contact', 'thanks' ) ) ) {
+      $current_nav_key = 'contact';
+    }
+
     $nav_items = array(
       array(
+        'key' => 'works',
         'label' => 'WORKS',
         'sub' => '実績',
         'url' => home_url( '/works/' ),
       ),
       array(
+        'key' => 'price',
         'label' => 'PRICE',
         'sub' => '料金',
         'url' => home_url( '/price/' ),
       ),
       array(
+        'key' => 'profile',
         'label' => 'PROFILE',
         'sub' => '経歴・職歴',
         'url' => $profile_url,
       ),
       array(
+        'key' => 'news',
         'label' => 'NEWS',
         'sub' => 'お知らせ',
         'url' => $news_archive_url,
       ),
       array(
+        'key' => 'faq',
         'label' => 'FAQ',
         'sub' => 'よくあるご質問',
         'url' => $faq_url,
@@ -52,15 +73,19 @@
       <nav class="p-header__nav" aria-label="グローバルナビゲーション">
         <ul class="p-header__nav-list">
           <?php foreach ( $nav_items as $item ) : ?>
+            <?php
+              $is_current = $item['key'] === $current_nav_key;
+              $link_class = $is_current ? 'p-header__nav-link is-current' : 'p-header__nav-link';
+            ?>
             <li class="p-header__nav-item">
-              <a class="p-header__nav-link" href="<?php echo esc_url( $item['url'] ); ?>">
+              <a class="<?php echo esc_attr( $link_class ); ?>" href="<?php echo esc_url( $item['url'] ); ?>"<?php echo $is_current ? ' aria-current="page"' : ''; ?>>
                 <span class="p-header__nav-main"><?php echo esc_html( $item['label'] ); ?></span>
               </a>
             </li>
           <?php endforeach; ?>
         </ul>
       </nav>
-      <a class="p-header__contact" href="<?php echo esc_url( $contact_url ); ?>">
+      <a class="<?php echo esc_attr( 'contact' === $current_nav_key ? 'p-header__contact is-current' : 'p-header__contact' ); ?>" href="<?php echo esc_url( $contact_url ); ?>"<?php echo 'contact' === $current_nav_key ? ' aria-current="page"' : ''; ?>>
         <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/icons/icon-mail.svg' ); ?>" alt="" width="24" height="18" decoding="async">
         <span>CONTACT</span>
       </a>
@@ -72,15 +97,19 @@
       <nav class="p-header__drawer-nav" aria-label="スマートフォンナビゲーション">
         <ul class="p-header__drawer-list">
           <?php foreach ( $nav_items as $item ) : ?>
+            <?php
+              $is_current = $item['key'] === $current_nav_key;
+              $drawer_link_class = $is_current ? 'p-header__drawer-link js-drawer-link is-current' : 'p-header__drawer-link js-drawer-link';
+            ?>
             <li class="p-header__drawer-item">
-              <a class="p-header__drawer-link js-drawer-link" href="<?php echo esc_url( $item['url'] ); ?>">
+              <a class="<?php echo esc_attr( $drawer_link_class ); ?>" href="<?php echo esc_url( $item['url'] ); ?>"<?php echo $is_current ? ' aria-current="page"' : ''; ?>>
                 <span class="p-header__drawer-main"><?php echo esc_html( $item['label'] ); ?></span>
                 <span class="p-header__drawer-sub"><?php echo esc_html( $item['sub'] ); ?></span>
               </a>
             </li>
           <?php endforeach; ?>
           <li class="p-header__drawer-item">
-            <a class="p-header__drawer-link js-drawer-link" href="<?php echo esc_url( $contact_url ); ?>">
+            <a class="<?php echo esc_attr( 'contact' === $current_nav_key ? 'p-header__drawer-link js-drawer-link is-current' : 'p-header__drawer-link js-drawer-link' ); ?>" href="<?php echo esc_url( $contact_url ); ?>"<?php echo 'contact' === $current_nav_key ? ' aria-current="page"' : ''; ?>>
               <span class="p-header__drawer-main">CONTACT</span>
               <span class="p-header__drawer-sub">お問い合わせ</span>
             </a>
