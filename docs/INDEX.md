@@ -31,6 +31,8 @@
 ```
 00-common.md
 01-static-sp.md
+13-static-checklist.md
+14-production-checklist.md
 ```
 
 用途
@@ -49,6 +51,8 @@
 ```
 00-common.md
 02-static-pc.md
+13-static-checklist.md
+14-production-checklist.md
 ```
 
 用途
@@ -66,7 +70,9 @@
 00-common.md
 10-wordpress-theme.md
 11-wordpress-quality.md
+13-static-checklist.md
 12-wordpress-checklist.md
+14-production-checklist.md
 ```
 
 用途
@@ -85,7 +91,9 @@
 00-common.md
 20-static-to-wordpress.md
 11-wordpress-quality.md
+13-static-checklist.md
 12-wordpress-checklist.md
+14-production-checklist.md
 ```
 
 用途
@@ -118,6 +126,8 @@
 
 1. コーディング内容を自己レビューする
 2. 品質ルールに違反していないか確認する
-3. 納品前品質チェックを実施する
-4. 問題があれば修正してからコードを出力する
-5. すべて問題がなければ「納品・提出可能」と判断する
+3. 静的サイト・WordPress共通のフロントエンド品質チェックを実施する
+4. WordPress案件ではWordPress固有の品質チェックを実施する
+5. 本番公開前・納品前チェックを実施する
+6. 問題があれば修正してからコードを出力する
+7. すべて問題がなければ「納品・提出可能」と判断する
